@@ -3,8 +3,10 @@
     <div class="row no-gutters  ">
       <div class="col-2 border"></div>
       <div class="col-10">
-        <div class="row flex-row flex-nowrap ml-0 mr-0" >
-            <div class="border cell text-center" *ngFor="let day of days;">{{day}}</div>
+        <div class="row flex-row flex-nowrap ml-0 mr-0">
+
+          <div class="border cell text-center" [ngClass]="{'bg-light': d.isWeekend()}" *ngFor="let d of days;">{{d.date
+            | date: 'd' }}</div>
         </div>
 
       </div>

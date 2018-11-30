@@ -10,7 +10,7 @@ import { DateUtilService, Day } from 'src/app/service/date-util.service';
 export class MonthComponent implements OnInit {
 
   @Input()
-  day: Date;
+  day: Day;
 
   list = [{
     name: 'bob',
@@ -30,7 +30,7 @@ export class MonthComponent implements OnInit {
       date: '12/27/2018',
       type: ''
     }, {
-      date: '12/2/2018',
+      date: '12/3/2018',
       type: ''
     }
     ]
@@ -38,7 +38,6 @@ export class MonthComponent implements OnInit {
   ];
 
   days: Day[] = [];
-  startOfMonth;
   constructor(private dateUtilService: DateUtilService) { }
 
   ngOnInit() {
@@ -46,12 +45,7 @@ export class MonthComponent implements OnInit {
   }
 
   init() {
-    this.startOfMonth = this.dateUtilService.getStartOfMonth(this.day);
-    const daysInMonth = this.dateUtilService.getDaysInMonth(this.day);
-    for (let i = 1; i <= daysInMonth; i++) {
-      const a = this.dateUtilService.addDaysToDate(this.startOfMonth, i - 1);
-      this.days.push( new Day(a.toDate()));
-    }
+    this.days = this.dateUtilService.buildMonthDays(this.day.date);
   }
 
   reset() {
@@ -70,16 +64,16 @@ export class MonthComponent implements OnInit {
   }
 
   previewsMonth() {
-    const prevMonthFirstDay = this.dateUtilService.getPrevMonthFirstDay(this.day);
+    const prevMonthFirstDay = this.dateUtilService.getPrevMonthFirstDay(this.day.date);
     this.reset();
-    this.day = prevMonthFirstDay.toDate();
+    this.day = new Day(prevMonthFirstDay.toDate());
     this.init();
   }
 
   nextMonth() {
-    const nextMonthLastDay = this.dateUtilService.getNextMonthFirstDay(this.day);
+    const nextMonthLastDay = this.dateUtilService.getNextMonthFirstDay(this.day.date);
     this.reset();
-    this.day = nextMonthLastDay.toDate();
+    this.day = new Day(nextMonthLastDay.toDate());
     this.init();
   }
 

@@ -1,6 +1,6 @@
 import { Component, Input, TemplateRef, ChangeDetectorRef, ChangeDetectionStrategy, DoCheck } from '@angular/core';
 
-import { DateUtilService } from 'src/app/service/date-util.service';
+import { DateUtilService, Day } from 'src/app/service/date-util.service';
 
 
 @Component({
@@ -12,12 +12,12 @@ import { DateUtilService } from 'src/app/service/date-util.service';
 export class HeaderComponent implements DoCheck {
 
   @Input()
-  day: Date;
+  day: Day;
 
   @Input()
   customTemplate: TemplateRef<any>;
 
-  days: number[] = [];
+  days: Day[] = [];
 
   constructor(private cdr: ChangeDetectorRef, private dateUtilService: DateUtilService) {
 
@@ -33,9 +33,6 @@ export class HeaderComponent implements DoCheck {
   }
 
   init() {
-    const daysInMonth = this.dateUtilService.getDaysInMonth(this.day);
-    for (let i = 1; i <= daysInMonth; i++) {
-      this.days.push(i);
-    }
+    this.days = this.dateUtilService.buildMonthDays(this.day.date);
   }
 }

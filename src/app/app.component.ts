@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
+import { DateUtilService, Day } from 'src/app/service/date-util.service';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +7,14 @@ import * as moment from 'moment';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  day;
+  day: Day;
 
   title = 'Angular';
 
+  constructor(private dateUtilService: DateUtilService) {
+  }
 
   ngOnInit() {
-    this.day = moment();
+    this.day = this.dateUtilService.getCurrentDate();
   }
 }
