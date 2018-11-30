@@ -1,0 +1,22 @@
+<div>
+
+
+  <div class="modal-header">
+      <button type="button" class="btn btn-primary" (click)="previewsMonth()" >Previews</button>
+      <h1>{{day | date: 'MMMM'}}</h1>
+      <button type="button" class="btn btn-secondary" (click)="nextMonth()">Next</button>
+    </div>
+  <app-header [day]="day"></app-header>
+
+  <div class="container-fluid">
+      <!-- "row flex-row flex-nowrap no-gutters border"  -->
+    <div class="row no-gutters" *ngFor="let item of list;">
+        <div class="col-2 border">{{item.name}}
+        </div>
+        <div class="col-10">
+        <div class=" row  flex-row flex-nowrap ml-0 mr-0" >
+            <div class="border cell text-center" *ngFor="let day of days;" [ngClass]="{'bg-primary': isOutOfOffice(day,item.outOfOffice), 'bg-light': day.isWeekend()}"></div>
+        </div></div>
+    </div>
+  </div>
+</div>
